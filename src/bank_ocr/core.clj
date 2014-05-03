@@ -1,9 +1,9 @@
 (ns bank-ocr.core)
 
 (def base-digits
-  ["    _  _     _  _  _  _  _ "
-   "  | _| _||_||_ |_   ||_||_|"
-   "  ||_  _|  | _||_|  ||_| _|"])
+  [" _     _  _     _  _  _  _  _ "
+   "| |  | _| _||_||_ |_   ||_||_|"
+   "|_|  ||_  _|  | _||_|  ||_| _|"])
 
 ;; Split the 4 lines above in strings of 3 chars each
 (defn in-triplets [lines]
@@ -18,13 +18,20 @@
 
 (def string->digit
   (zipmap (digit-keys (in-triplets base-digits)) ;; keys
-          (map str (range 1 (inc 9)))))          ;; values
+          (map str (range (inc 9)))))          ;; values
+
+(defn parse-lines [lines]
+  (->> lines
+      (in-triplets)
+      (digit-keys)
+      (map string->digit)
+      (apply str)))
 
 (def reversed-nums
-  [" _  _  _  _  _     _  _       "
-   "|_||_|  ||_ |_ |_| _| _|  ||_|"
-   " _||_|  ||_| _|  | _||_   |  |"])
+  [" _  _  _  _  _  _     _  _       "
+   "|_||_|| |  ||_ |_ |_| _| _|  ||_|"
+   " _||_||_|  ||_| _|  | _||_   |  |"])
 
 (defn -main [& args]
-  (let [parsed-keys (digit-keys (in-triplets reversed-nums))]
-    (println (apply str (map string->digit parsed-keys)))))
+  (println (parse-lines reversed-nums)))
+
