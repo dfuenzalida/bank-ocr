@@ -1,14 +1,16 @@
 # bank-ocr
 
-A Clojure library designed to ... well, that part is up to you.
+An implementation of the Bank-OCR Kata from http://codingdojo.org/cgi-bin/index.pl?KataBankOCR 
 
 ## Usage
 
-FIXME
+```
+$ lein test
+```
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2014 Denis Fuenzalida
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
