@@ -5,7 +5,7 @@
    "| |  | _| _||_||_ |_   ||_||_|"
    "|_|  ||_  _|  | _||_|  ||_| _|"])
 
-;; Split the 4 lines above in strings of 3 chars each
+;; Split the 3 lines above in strings of 3 chars each
 (defn in-triplets [lines]
   (map #(re-seq #".{3}" %) lines))
 
@@ -25,15 +25,10 @@
 
 (defn parse-lines [lines]
   (->> lines
-      (in-triplets)
-      (digit-keys)
-      (map string->digit)
-      (apply str)))
-
-(def reversed-nums
-  [" _  _  _  _  _  _     _  _       "
-   "|_||_|| |  ||_ |_ |_| _| _|  ||_|"
-   " _||_||_|  ||_| _|  | _||_   |  |"])
+       (in-triplets)
+       (digit-keys)
+       (map string->digit)
+       (apply str)))
 
 ;; Story 2: check if an account number is valid by computing the checksum
 (defn valid-account? [num]
@@ -49,6 +44,12 @@
    (valid-account? num) ""
    :else "ERR"))
 
+(def reversed-nums
+  [" _  _  _  _  _  _     _  _       "
+   "|_||_|| |  ||_ |_ |_| _| _|  ||_|"
+   " _||_||_|  ||_| _|  | _||_   |  |"])
+
 (defn -main [& args]
-  (println (parse-lines reversed-nums)))
+  (println "Expected: 98076543214")
+  (println "Parsed  :"(parse-lines reversed-nums)))
 
