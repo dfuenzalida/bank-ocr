@@ -18,7 +18,7 @@
 
 (def string->digit
   (zipmap (digit-keys (in-triplets base-digits)) ;; keys
-          (map str (range (inc 9)))))          ;; values
+          (map str (range (inc 9)))))            ;; values
 
 (defn parse-lines [lines]
   (->> lines
