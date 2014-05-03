@@ -32,6 +32,13 @@
    "|_||_|| |  ||_ |_ |_| _| _|  ||_|"
    " _||_||_|  ||_| _|  | _||_   |  |"])
 
+;; Story 2: check if an account number is valid by computing the checksum
+(defn valid-account? [num]
+  (let [reversed-digits (map #(Integer. (str %)) (reverse (str num)))
+        product         (map * reversed-digits (range 1 (inc 9)))
+        total           (reduce + product)]
+    (zero? (mod total 11))))
+
 (defn -main [& args]
   (println (parse-lines reversed-nums)))
 

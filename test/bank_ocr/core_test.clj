@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [bank-ocr.core :refer :all]))
 
-;; Test: load file "resources/story1.txt" and parse the numbers correctly
+;; Test for story #1:
+;; Load file "resources/story1.txt" and parse the numbers correctly
 
 (deftest story-1
   (testing "Parsing the resources/story1.txt file"
@@ -16,3 +17,11 @@
               "888888888" "999999999" "123456789"]
              parsed)))))
 
+;; Test for story #2:
+;; Validate if the following numbers are valid accounts or not
+
+(deftest story-2
+  (testing "Validate account numbers"
+    (is (valid-account? 345882865))
+    (is (valid-account? 457508000))
+    (is (not (valid-account? 664371495)))))
