@@ -18,14 +18,14 @@
 ;; Print a digit from above with:
 ;; (println (interpose "\n" (re-seq #".{3}" (nth digit-keys 4))))
 
-(def string-to-digit
+(def string-to-digit-map
   "Map from string representation of digits => digit"
   (zipmap (digit-keys (in-triplets base-digits)) ;; keys
           (map str (range (inc 9)))))            ;; values
 
 (defn string->digit [key]
   "Looks for a representation of a digit or returns '?' for unknown"
-  (get string-to-digit key "?"))
+  (get string-to-digit-map key "?"))
 
 (defn parse-lines
   "Parses a seq of 3 lines into a string of numbers or question marks"
@@ -59,7 +59,23 @@
    "|_||_|| |  ||_ |_ |_| _| _|  ||_|"
    " _||_||_|  ||_| _|  | _||_   |  |"])
 
+(def digit-to-string-map
+  (zipmap (map str (range (inc 9)))
+          (digit-keys (in-triplets base-digits))))
+
+(defn number->large-digits [num]
+  (->> (str num)
+       (map str)
+       (map digit-to-string-map)
+       (in-triplets)
+       (apply map str)
+       (interpose "\n")
+       (apply str)))
+
+;; Write a temp file with large digits
+;; (with-open [w (clojure.java.io/writer "/tmp/live.txt")]
+;;     (.write w (number->large-digits 12345678901234)))
+
 (defn -main [& args]
   (println "Expected: 98076543214")
   (println "Parsed  :"(parse-lines reversed-nums)))
-
